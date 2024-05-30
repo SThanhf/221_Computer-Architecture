@@ -1,0 +1,26 @@
+.data
+.text
+main:
+	addi $t0, $0, -5
+	addi $t1, $0, 3
+	li $v0,5
+	syscall
+	move $t2,$v0		#a
+	li $v0,5
+	syscall
+	move $t3,$v0		#b
+	li $v0,5
+	syscall
+	move $t4,$v0		#c
+	sub $t5, $t2,$t0	
+	bltz $t5,true		#if a<-5
+	bltz $t5,true		#if a>3
+	beq $t2, $t1, true	#if a=3
+false:	add $t2, $t3, $t4
+	j end
+	sub $t5, $t2, $t1
+
+true:	mul $t2, $t3, $t4	
+end:	move $a0, $t2
+	li $v0, 1
+	syscall

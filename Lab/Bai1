@@ -1,0 +1,26 @@
+.data
+	str1: .asciiz "Computer Science and Engineering, HCMUT"
+	str2: .asciiz "Computer Architecture 2020"
+.text
+	li $v0,5
+	syscall
+	move $t1, $v0
+	bltz $t1, less
+normal:	div  $t0,$t1,2
+	mul $t0, $t0,2
+	sub $s0, $t1, $t0
+	li $t2, 1
+	beq $s0, $t2, true
+
+	la $a0,str2
+	li $v0,4
+	syscall
+	j end
+less:	mul $t1, $t1, -1
+	j normal
+true:	la $a0,str1
+	li $v0,4
+	syscall
+	j end
+end:	li $v0, 10
+	syscall
